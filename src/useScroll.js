@@ -1,3 +1,4 @@
+// 拆分独立的逻辑功能，返回滚动高度
 import { ref, onMounted, onUnmounted } from "vue";
 
 export default function useScroll() {
@@ -5,6 +6,7 @@ export default function useScroll() {
   function update(e) {
     top.value = window.scrollY;
   }
+  // 生命周期
   onMounted(() => {
     window.addEventListener("scroll", update);
   });

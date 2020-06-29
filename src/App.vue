@@ -17,6 +17,9 @@
 </template>
 
 <script>
+// composition API最好的特性就是可以拆分独立的函数，放在别的文件里
+// vue2只能用mixin来做，但是mixin会找不到源头，也会有重名bug
+// 如果不 import 打包时可以丢掉，就是所谓的tree-shaking
 import { ref, reactive, toRefs, computed } from "vue";
 import useAddTodo from "./addTodo";
 import useScroll from "./useScroll";
@@ -24,6 +27,8 @@ import useScroll from "./useScroll";
 export default {
   setup() {
     // const count = ref(0);
+    // 定义一个 count 的响应式数据，并赋值为 0
+    // ref 将给定的值(确切的说是基本数据类型)创建一个响应式的数据对象
     const state = reactive({
       newTodo: "",
       todos: [
@@ -36,15 +41,19 @@ export default {
         { id: "7", title: "打豆豆", completed: false }
       ]
     });
+    // vue3中computed是函数，不使用对象配置的方式
     const remaining = computed(
       () => state.todos.filter(todo => !todo.completed).length
     );
     function toggle(i) {
       state.todos[i].completed = !state.todos[i].completed;
     }
+    // 数据来源清晰
     const { addTodo } = useAddTodo(state);
     const { top } = useScroll();
+
     return {
+      // toRefs 可以将reactive创建出的对象展开为基础类型
       ...toRefs(state),
       addTodo,
       remaining,

@@ -1,6 +1,6 @@
 // 拆分独立的逻辑功能，返回滚动高度
 import { ref, onMounted, onUnmounted } from "vue";
-import debounce from "./debounce";
+import debounce from "./debounce"; // 防抖
 
 export default function useScroll() {
   const top = ref(0);

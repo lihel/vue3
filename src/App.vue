@@ -48,7 +48,7 @@ export default {
     function toggle(i) {
       state.todos[i].completed = !state.todos[i].completed;
     }
-    // 数据来源清晰
+    // 数据来源清晰 逻辑复用
     const { addTodo } = useAddTodo(state);
     const { top } = useScroll();
 
